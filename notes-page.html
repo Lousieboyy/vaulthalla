@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cormorant Upright', serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(rgba(34, 34, 34, 0.6), rgba(34, 34, 34, 0.6)), url("note1.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+        nav {
+            padding: 40px;
+            font-size: 20px;
+        }
+        ul {
+            list-style: none;
+            display: flex;
+            padding: 0;
+            margin: 0;
+            align-items: center;
+        }
+        li {
+            position: relative;
+            margin: 0 15px;
+            transition: 1s;
+            cursor: pointer;
+            color: white;
+        }
+        li::after {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 3px;
+            top: 100%;
+            left: 0;
+            transition: transform 0.5s;
+            transform: scale(0);
+            transform-origin: right;
+            background-color: white;
+        }
+        li:hover {
+            color: yellow;
+            font-size: large;
+            transition: 0.5s;
+        }
+        li:hover::after {
+            transform: scale(1);
+            transform-origin: left;
+        }
+        .profile {
+            margin-left: auto;
+        }
+        .profile img {
+            width: 100px;
+        }
+        div {
+            margin-top: 20px;
+            color: white;
+        }
+        header {
+            color: white;
+            font-size: 50px;
+        }
+        .definition-jomsviking {
+            font-size: 25px;
+            align-content: center;
+            padding: 40px 200px;
+        }
+        a {
+            text-decoration: none;
+            color: white;
+        }
+        a:hover {
+            color: yellow;
+            font-size: large;
+            transition: 0.5s;
+        }
+        .image-holder {
+            margin-top: 20px;
+            padding: 20px;
+            border: 2px dashed white;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        .image-holder img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+        select {
+            margin: 20px;
+            padding: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="home-page.html">HOME</a></li>
+            <li><a href="notes-page.html">NOTES</a></li>
+            <li>FLASHCARDS</li>
+            <li>LIBRARY</li>
+            <li>TRACKER</li>
+            <li class="profile"><img src="profile2.png" alt="Profile"></li>
+        </ul>
+    </nav>
+    <main>
+        <header><center>JOMSVIKING'S SECRET</center></header>
+        <div class="definition-jomsviking">AS THE KNOWLEDGE STORED HERE</div>
+
+        <!-- Filtering Dropdowns -->
+        <div>
+            <select id="faculty" onchange="filterContent()">
+                <option value="">Select Faculty</option>
+                <option value="Faculty of Science">Faculty of Science</option>
+                <option value="Faculty of Arts">Faculty of Arts</option>
+            </select>
+            <select id="course" onchange="filterContent()">
+                <option value="">Select Course</option>
+                <option value="Course A">Course A</option>
+                <option value="Course B">Course B</option>
+            </select>
+            <select id="subject" onchange="filterContent()">
+                <option value="">Select Subject</option>
+                <option value="Subject 1">Subject 1</option>
+                <option value="Subject 2">Subject 2</option>
+            </select>
+        </div>
+
+        <!-- Image Upload -->
+        <input type="file" id="imageUpload" accept="image/*" onchange="displayImage(event)">
+        <div class="image-holder" id="imageHolder">
+            <p>No Image Uploaded</p>
+        </div>
+    </main>
+    <footer></footer>
+
+    <script>
+        function displayImage(event) {
+            const imageHolder = document.getElementById('imageHolder');
+            const file = event.target.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                imageHolder.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
+            }
+            reader.readAsDataURL(file);
+        }
+
+        function filterContent() {
+            const faculty = document.getElementById('faculty').value;
+            const course = document.getElementById('course').value;
+            const subject = document.getElementById('subject').value;
+
+            // Implement your filtering logic here
+            console.log('Filtering by:', { faculty, course, subject });
+            // You can add logic to show/hide content based on these values
+        }
+    </script>
+</body>
+</html>
