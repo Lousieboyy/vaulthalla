@@ -1,127 +1,50 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <style>
-        
-        body {
-            font-family: 'Cormorant Upright', serif; /* Use the font in your CSS */
-            display: flex;
-            flex-direction: column; /* Arrange items in a column */
-            align-items: center; /* Center items horizontally */
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(
-                rgba(34, 34, 34, 0.6),
-                rgba(34, 34, 34, 0.6)
-            ),
-            url("home.jpg");
-            background-size: cover;
-            background-position: center;
-        }
-        nav {
-            padding: 40px;
-            font-size: 20px;
-        }
-        ul {
-            list-style: none;
-            display: flex;
-            padding: 0;
-            margin: 0;
-            align-items: center;
-        }
-        li {
-            position: relative;
-            margin: 0 15px;
-            transition: 1s;
-            cursor: pointer;
-            color: white;
-        }
-        li::after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 3px;
-            top: 100%;
-            left: 0;
-            transition: transform 0.5s;
-            transform: scale(0);
-            transform-origin: right;
-            background-color: white;
-        }
-        li:hover {
-            color: yellow;
-            font-size: large;
-            transition: 0.5s;
-        }
-        li:hover::after {
-            transform: scale(1);
-            transform-origin: left;
-        }
-        .profile {
-            margin-left: auto;
-        }
-        .profile img {
-            width: 100px;
-        }
-        div {
-            margin-top: 20px; /* Add some space above the text */
-            color: white; /* Set text color to white for visibility */
-        }
-        header{
-            color: white;
-            font-size: 50px;
-        }
-        .what-is-Vaulthalla{
-            font-size: 25px;
-            align-content: center;
-            padding: 40px 200px;
-        }
-        a {
-            text-decoration: none;
-            color: white;
-        }
-        a:hover {
-            color: yellow;
-            font-size: large;
-            transition: 0.5s;
-        }
-        a:hover::after {
-            transform: scale(1);
-            transform-origin: left;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self';">
+  <title>Vaulthalla | Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <nav>
-        <ul>
-            <li>HOME</li>
-            <li><a href="notes-page.html">NOTES</a></li>
-            <li>FLASHCARDS</li>
-            <li>LIBRARY</li>
-            <li>TRACKER</li>
-            <li class="profile"><img src="profile2.png" alt="Profile"></li>
-        </ul>
+<body class="page-shell" data-page="home" style="--bg-image:url('home.jpg')">
+  <div class="container">
+    <nav class="navbar" aria-label="Main navigation">
+      <strong class="brand">VAULTHALLA</strong>
+      <ul class="nav-links">
+        <li><a data-page="home" href="home-page.html">Home</a></li>
+        <li><a data-page="notes" href="notes-page.html">Notes</a></li>
+        <li><a data-page="flashcards" href="flashcards-page.html">Flashcards</a></li>
+        <li><a data-page="library" href="card-section.html">Library</a></li>
+      </ul>
+      <img class="avatar" src="profile2.png" alt="Profile avatar">
     </nav>
+
     <main>
-        <header><center>WELCOME TO VAULTHALLA</center></header>
-        <div class="what-is-Vaulthalla">
-            What is Vaulthalla - Vaulthalla is the place act as the library 
-            that store all the students scrolls (notes & solution). 
-            Also, this place provide flashcards to boost their memory before taking exam.
-            Vaulthalla, is community-based on student to increase studibility during studies.
-        </div>
-    
+      <section class="hero">
+        <h1>Welcome to Vaulthalla</h1>
+        <p id="welcomeUser">Your community vault for notes, revision cards, and smarter study workflows.</p>
+      </section>
 
-
-
-
-
+      <section class="grid three">
+        <article class="card">
+          <h2>Structured learning</h2>
+          <p>Organize by faculty, course, and subject so each student finds relevant resources instantly.</p>
+        </article>
+        <article class="card">
+          <h2>Rapid memory boosts</h2>
+          <p>Use flip-based flashcards for active recall, faster retention, and more confident exam preparation.</p>
+        </article>
+        <article class="card">
+          <h2>Scalable foundation</h2>
+          <p>Shared CSS/JS architecture keeps maintenance clean and supports adding API integrations later.</p>
+        </article>
+      </section>
     </main>
-    <footer></footer>
+  </div>
+  <script src="app.js" defer></script>
 </body>
 </html>
