@@ -1,174 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Cormorant Upright', serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(rgba(34, 34, 34, 0.6), rgba(34, 34, 34, 0.6)), url("note1.jpg");
-            background-size: cover;
-            background-position: center;
-        }
-        nav {
-            padding: 40px;
-            font-size: 20px;
-        }
-        ul {
-            list-style: none;
-            display: flex;
-            padding: 0;
-            margin: 0;
-            align-items: center;
-        }
-        li {
-            position: relative;
-            margin: 0 15px;
-            transition: 1s;
-            cursor: pointer;
-            color: white;
-        }
-        li::after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 3px;
-            top: 100%;
-            left: 0;
-            transition: transform 0.5s;
-            transform: scale(0);
-            transform-origin: right;
-            background-color: white;
-        }
-        li:hover {
-            color: yellow;
-            font-size: large;
-            transition: 0.5s;
-        }
-        li:hover::after {
-            transform: scale(1);
-            transform-origin: left;
-        }
-        .profile {
-            margin-left: auto;
-        }
-        .profile img {
-            width: 100px;
-        }
-        div {
-            margin-top: 20px;
-            color: white;
-        }
-        header {
-            color: white;
-            font-size: 50px;
-        }
-        .definition-jomsviking {
-            font-size: 25px;
-            align-content: center;
-            padding: 40px 200px;
-        }
-        a {
-            text-decoration: none;
-            color: white;
-        }
-        a:hover {
-            color: yellow;
-            font-size: large;
-            transition: 0.5s;
-        }
-        .image-holder {
-            margin-top: 20px;
-            padding: 20px;
-            border: 2px dashed white;
-            width: 300px;
-            height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-        .image-holder img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-        select {
-            margin: 20px;
-            padding: 10px;
-            font-size: 16px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self';">
+  <title>Vaulthalla | Notes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <nav>
-        <ul>
-            <li><a href="home-page.html">HOME</a></li>
-            <li><a href="notes-page.html">NOTES</a></li>
-            <li>FLASHCARDS</li>
-            <li>LIBRARY</li>
-            <li>TRACKER</li>
-            <li class="profile"><img src="profile2.png" alt="Profile"></li>
-        </ul>
+<body class="page-shell" data-page="notes" style="--bg-image:url('note1.jpg')">
+  <div class="container">
+    <nav class="navbar" aria-label="Main navigation">
+      <strong class="brand">VAULTHALLA</strong>
+      <ul class="nav-links">
+        <li><a data-page="home" href="home-page.html">Home</a></li>
+        <li><a data-page="notes" href="notes-page.html">Notes</a></li>
+        <li><a data-page="flashcards" href="flashcards-page.html">Flashcards</a></li>
+        <li><a data-page="library" href="card-section.html">Library</a></li>
+      </ul>
+      <img class="avatar" src="profile2.png" alt="Profile avatar">
     </nav>
+
     <main>
-        <header><center>JOMSVIKING'S SECRET</center></header>
-        <div class="definition-jomsviking">AS THE KNOWLEDGE STORED HERE</div>
+      <section class="hero">
+        <h1>Jomsviking's Secret Archive</h1>
+        <p>Filter notes by faculty, course, and subject, then preview uploaded material safely.</p>
 
-        <!-- Filtering Dropdowns -->
-        <div>
-            <select id="faculty" onchange="filterContent()">
-                <option value="">Select Faculty</option>
-                <option value="Faculty of Science">Faculty of Science</option>
-                <option value="Faculty of Arts">Faculty of Arts</option>
-            </select>
-            <select id="course" onchange="filterContent()">
-                <option value="">Select Course</option>
-                <option value="Course A">Course A</option>
-                <option value="Course B">Course B</option>
-            </select>
-            <select id="subject" onchange="filterContent()">
-                <option value="">Select Subject</option>
-                <option value="Subject 1">Subject 1</option>
-                <option value="Subject 2">Subject 2</option>
-            </select>
+        <div class="inline">
+          <select id="faculty" aria-label="Faculty filter"><option value="">All faculties</option></select>
+          <select id="course" aria-label="Course filter"><option value="">All courses</option></select>
+          <select id="subject" aria-label="Subject filter"><option value="">All subjects</option></select>
         </div>
 
-        <!-- Image Upload -->
-        <input type="file" id="imageUpload" accept="image/*" onchange="displayImage(event)">
-        <div class="image-holder" id="imageHolder">
-            <p>No Image Uploaded</p>
+        <div class="inline">
+          <input id="search" type="search" placeholder="Search by title, summary, or topic">
         </div>
+
+        <section class="card">
+          <h2>Upload note image</h2>
+          <input type="file" id="imageUpload" accept="image/png, image/jpeg, image/webp">
+          <p id="uploadAlert" class="alert" role="status" aria-live="polite"></p>
+          <div id="preview" class="preview"><span class="small">No image selected.</span></div>
+        </section>
+
+        <section id="notesList" class="notes-list grid"></section>
+      </section>
     </main>
-    <footer></footer>
-
-    <script>
-        function displayImage(event) {
-            const imageHolder = document.getElementById('imageHolder');
-            const file = event.target.files[0];
-            const reader = new FileReader();
-            reader.onload = function (e) {
-                imageHolder.innerHTML = `<img src="${e.target.result}" alt="Uploaded Image">`;
-            }
-            reader.readAsDataURL(file);
-        }
-
-        function filterContent() {
-            const faculty = document.getElementById('faculty').value;
-            const course = document.getElementById('course').value;
-            const subject = document.getElementById('subject').value;
-
-            // Implement your filtering logic here
-            console.log('Filtering by:', { faculty, course, subject });
-            // You can add logic to show/hide content based on these values
-        }
-    </script>
+  </div>
+  <script src="app.js" defer></script>
 </body>
 </html>

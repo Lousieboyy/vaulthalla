@@ -1,194 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <title>Flashcard Generator</title>
-    <style>
-        body {
-            font-family: 'Cormorant Upright', serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(
-                rgba(34, 34, 34, 0.6),
-                rgba(34, 34, 34, 0.6)
-            ),
-            url("flash.jpg");
-            background-size: cover;
-            background-position: center;
-        }
-        nav {
-            padding: 40px;
-            font-size: 20px;
-        }
-        ul {
-            list-style: none;
-            display: flex;
-            padding: 0;
-            margin: 0;
-            align-items: center;
-        }
-        li {
-            position: relative;
-            margin: 0 15px;
-            transition: 1s;
-            cursor: pointer;
-            color: white;
-        }
-        li::after {
-            position: absolute;
-            content: "";
-            width: 100%;
-            height: 3px;
-            top: 100%;
-            left: 0;
-            transition: transform 0.5s;
-            transform: scale(0);
-            transform-origin: right;
-            background-color: white;
-        }
-        li:hover {
-            color: yellow;
-            font-size: large;
-            transition: 0.5s;
-        }
-        li:hover::after {
-            transform: scale(1);
-            transform-origin: left;
-        }
-        .profile {
-            margin-left: auto;
-        }
-        .profile img {
-            width: 100px;
-        }
-        div {
-            margin-top: 20px;
-            color: white;
-        }
-        header {
-            color: white;
-            font-size: 50px;
-        }
-        a {
-            text-decoration: none;
-            color: white;
-        }
-        a:hover {
-            color: yellow;
-            font-size: large;
-            transition: 0.5s;
-        }
-        a:hover::after {
-            transform: scale(1);
-            transform-origin: left;
-        }
-        .flashcard-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .flashcard {
-            width: 300px;
-            height: 200px;
-            margin: 10px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-        .flashcard-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-        }
-        .flashcard.flip .flashcard-inner {
-            transform: rotateY(180deg);
-        }
-        .flashcard-front,
-        .flashcard-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #222;
-        }
-        .flashcard-back {
-            transform: rotateY(180deg);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; script-src 'self'; connect-src 'self'; base-uri 'self'; form-action 'self';">
+  <title>Vaulthalla | Flashcards</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <nav>
-        <ul>
-            <li>HOME</li>
-            <li><a href="notes-page.html">NOTES</a></li>
-            <li>FLASHCARDS</li>
-            <li>LIBRARY</li>
-            <li>TRACKER</li>
-            <li class="profile"><img src="profile2.png" alt="Profile"></li>
-        </ul>
+<body class="page-shell" data-page="flashcards" style="--bg-image:url('flash.jpg')">
+  <div class="container">
+    <nav class="navbar" aria-label="Main navigation">
+      <strong class="brand">VAULTHALLA</strong>
+      <ul class="nav-links">
+        <li><a data-page="home" href="home-page.html">Home</a></li>
+        <li><a data-page="notes" href="notes-page.html">Notes</a></li>
+        <li><a data-page="flashcards" href="flashcards-page.html">Flashcards</a></li>
+        <li><a data-page="library" href="card-section.html">Library</a></li>
+      </ul>
+      <img class="avatar" src="profile2.png" alt="Profile avatar">
     </nav>
+
     <main>
-        <header><center>ASKELADD'S ARMY CAMP</center></header>
-        <div class="flashcard-container" id="flashcard-container"></div>
+      <section class="hero">
+        <h1>Askeladd's Army Camp</h1>
+        <p>Practice active recall with smooth flip animations and build your own deck.</p>
+
+        <p id="cardCounter" class="small"></p>
+        <div class="flashcard-shell">
+          <article id="flashcard" class="flashcard" aria-live="polite">
+            <div class="face front"><h2 id="flashQ"></h2></div>
+            <div class="face back"><h2 id="flashA"></h2></div>
+          </article>
+        </div>
+
+        <div class="inline" style="margin-top: 1rem;">
+          <button id="prevBtn" type="button" class="secondary">Previous</button>
+          <button id="flipBtn" type="button">Flip</button>
+          <button id="nextBtn" type="button" class="secondary">Next</button>
+        </div>
+
+        <section class="card" style="margin-top: 1rem;">
+          <h2>Add a flashcard</h2>
+          <form id="newCardForm" class="form-stack">
+            <input id="newQuestion" maxlength="180" required placeholder="Question">
+            <textarea id="newAnswer" maxlength="180" required placeholder="Answer"></textarea>
+            <button type="submit">Add card</button>
+            <p id="flashAlert" class="alert" role="status" aria-live="polite"></p>
+          </form>
+        </section>
+      </section>
     </main>
-    <footer></footer>
-
-    <script>
-        // Example flashcards
-        const flashcards = [
-            { question: "What is the capital of France?", answer: "Paris" },
-            { question: "What is 2 + 2?", answer: "4" },
-            { question: "What is the largest ocean on Earth?", answer: "Pacific Ocean" },
-        ];
-
-        // Function to create flashcards
-        function createFlashcards() {
-            const container = document.getElementById('flashcard-container');
-
-            flashcards.forEach(card => {
-                const flashcard = document.createElement('div');
-                flashcard.className = 'flashcard';
-                
-                const flashcardInner = document.createElement('div');
-                flashcardInner.className = 'flashcard-inner';
-                
-                const flashcardFront = document.createElement('div');
-                flashcardFront.className = 'flashcard-front';
-                flashcardFront.textContent = card.question;
-                
-                const flashcardBack = document.createElement('div');
-                flashcardBack.className = 'flashcard-back';
-                flashcardBack.textContent = card.answer;
-
-                flashcardInner.appendChild(flashcardFront);
-                flashcardInner.appendChild(flashcardBack);
-                flashcard.appendChild(flashcardInner);
-
-                flashcard.addEventListener('click', function () {
-                    flashcard.classList.toggle('flip');
-                });
-
-                container.appendChild(flashcard);
-            });
-        }
-
-        // Call the function to generate flashcards
-        createFlashcards();
-    </script>
+  </div>
+  <script src="app.js" defer></script>
 </body>
 </html>
